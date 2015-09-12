@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    //placeholder change when performing different search
+    $("#searchByAuthor").on("click", function(){
+      $("#userInput").attr("placeholder", "e.g. Stephen King");
+    });
+
+    $("#searchByTitle").on("click", function(){
+      $("#userInput").attr("placeholder", "e.g. The Shining");
+    });
+
+  	$("form").on("submit", function(){
+      //clean up the previous search
+      $("div[data-id=result]").empty();
+      $("div[data-id=image]").empty();
+      //grab the user input from the form
+  		var userSearch = $("#userInput").val();
+      //if it's searching by book title
+      if($("#searchByTitle").is(":checked")){
+        $.get("/database?title=" + userSearch, function(res){
+          $("div[data-id=result]").addClass("jumbotron");
+          //click on the title to edit (change the name, performe deletion)
+          $("div[data-id=result]").append("<h2><a href= /edit/" + res.id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
+          $("div[data-id=image]").append("<img src=" + res.url + "></img>");
+        })  
+      }
+      //searching by book author
+  		else{
+        $.get("/database?author=" + userSearch, function(res){        
+          $("div[data-id=result]").addClass("jumbotron");
+          //click on the title to edit (change the name, performe deletion)
+          $("div[data-id=result]").append("<h2><a href= /edit/" + res.id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
+          $("div[data-id=image]").append("<img src=" + res.url + "></img>");
+        })
+      }
+      //clean up the previous search
+      $("#userInput").val("");
+  	})
+  });
+  </script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <title>Home</title>
+  
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<form action="javascript:void(0)">
+          <div class="radio">
+            <label>
+              <input type="radio" id="searchByTitle" name="searchIt" value="searchByTitle" checked> Search by Book Title
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" id="searchByAuthor" name="searchIt" value="searchByAuthor"> Search by Book Author
+            </label>
+          </div>
+					<div class="form-group">
+						<label for="userInput"><h2><strong>Looking for a book:</strong></h2></label>
+						<input type="text" id="userInput" name="userInput" class="form-control" placeholder="e.g. The Shining" autofocus>
+						
+						<label for="submitIt"></label>
+						<input type="submit" class="btn" id="submitIt">
+
+            <label for="addNew"></label>
+            <a href="/new"><input type="button" class="btn btn-success" id="addNew" value="Add New Book"></a>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<div data-id="result"></div>
+			</div>
+			<div class="col-md-6">
+				<div data-id="image"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

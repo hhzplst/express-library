@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+  $(document).ready(function(){
+    $.get("/database?id="+ <%= id %>, function(res){
+      $("#editTitle").val(res.title);
+      $("#editAuthor").val(res.author);
+      $("#editYear").val(res.year);
+      $("#editPic").val(res.url);
+    })
+  });
+  </script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <title>Edit Book</title>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4">
+        <h1>Edit Book Information:</h1><br>
+        <form action="/edit/<%= id %>?_method=PUT" method="POST">
+          <div class="form-group">
+
+            <label for="editTitle">Title</label>
+            <input type="text" id="editTitle" name="title" class="form-control"><br>
+
+            <label for="editAuthor">Author</label>
+            <input type="text" id="editAuthor" name="author" class="form-control"><br>
+
+            <label for="editYear">Year</label>
+            <input type="text" id="editYear" name="year" class="form-control"><br>
+
+            <label for="editPic">URL</label>
+            <input type="text" id="editPic" name="pic" class="form-control"><br>
+            
+            <label for="saveChanges"></label>
+            <input type="submit" class="btn btn-info" value="Save Changes" id="saveChanges">
+
+            <a href="/" class="pull-right"><button class="btn btn-default">Home</button></a>
+
+          </div>
+        </form>
+        <form action="/edit/<%= id %>?_method=DELETE" method="POST">
+          <div class="form-group">
+            <label for="deleteBook"></label>
+            <input type="submit" class="btn btn-danger center-block" value="Delete this Book" id="deleteBook">
+          </div>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
