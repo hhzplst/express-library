@@ -25,7 +25,7 @@
         $.get("/database?title=" + userSearch, function(res){
           $("div[data-id=result]").addClass("jumbotron");
           //click on the title to edit (change the name, performe deletion)
-          $("div[data-id=result]").append("<h2><a href= /edit/" + res.id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
+          $("div[data-id=result]").append("<h2><a href= /books/edit/" + res._id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
           $("div[data-id=image]").append("<img src=" + res.url + "></img>");
         })  
       }
@@ -34,7 +34,7 @@
         $.get("/database?author=" + userSearch, function(res){        
           $("div[data-id=result]").addClass("jumbotron");
           //click on the title to edit (change the name, performe deletion)
-          $("div[data-id=result]").append("<h2><a href= /edit/" + res.id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
+          $("div[data-id=result]").append("<h2><a href= /books/edit/" + res._id + ">" + res.title + "</a></h2>", "<h3>" + res.author + "</h3>", "<h4>" + res.year + "</h4>"); 
           $("div[data-id=image]").append("<img src=" + res.url + "></img>");
         })
       }
@@ -80,7 +80,7 @@
 						<input type="submit" class="btn" id="submitIt">
 
             <label for="addNew"></label>
-            <a href="/new"><input type="button" class="btn btn-success" id="addNew" value="Add New Book"></a>
+            <a href="/books/new"><input type="button" class="btn btn-success" id="addNew" value="Add New Book"></a>
 					</div>
 				</form>
 			</div>

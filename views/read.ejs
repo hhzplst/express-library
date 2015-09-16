@@ -5,7 +5,7 @@
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script>
   $(document).ready(function(){
-    $.get("/database?id="+ <%= id %>, function(res){
+    $.get("/database?id=<%= id %>", function(res){
       $("#editTitle").val(res.title);
       $("#editAuthor").val(res.author);
       $("#editYear").val(res.year);
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-sm-4 col-sm-offset-4">
         <h1>Edit Book Information:</h1><br>
-        <form action="/edit/<%= id %>?_method=PUT" method="POST">
+        <form action="/books/edit/<%= id %>?_method=PUT" method="POST">
           <div class="form-group">
 
             <label for="editTitle">Title</label>
@@ -54,7 +54,7 @@
 
           </div>
         </form>
-        <form action="/edit/<%= id %>?_method=DELETE" method="POST">
+        <form action="/books/edit/<%= id %>?_method=DELETE" method="POST">
           <div class="form-group">
             <label for="deleteBook"></label>
             <input type="submit" class="btn btn-danger center-block" value="Delete this Book" id="deleteBook">
